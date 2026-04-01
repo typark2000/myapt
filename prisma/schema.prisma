@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PropertyType {
+  APARTMENT
+}
+
+enum ProductType {
+  CASH
+  GENERAL_MORTGAGE
+  POLICY_MORTGAGE
+}
+
+enum RateType {
+  FIXED
+  MIXED
+  VARIABLE
+}
+
+enum HouseholdType {
+  SINGLE
+  COUPLE
+  FAMILY
+}
+
+enum RegionKind {
+  CAPITAL
+  LOCAL
+  REGULATED
+}
+
+model Complex {
+  id                String   @id @default(cuid())
+  sourceComplexCode String?  @unique
+  name              String
+  sido              String
+  sigungu           String
+  dong              String?
+  address           String
+  householdCount    Int?
+  completionYear    Int?
+  naverDirectUrl    String?
+  propertyType      PropertyType @default(APARTMENT)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  unitTypes         UnitType[]
+  metadata          ComplexMetadata?
+}
+
+model ComplexMetadata {
+  id          String   @id @default(cuid())
+  complexId   String   @unique
+  regionKind  RegionKind?
+  builderName String?
+  legalDongCode String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  complex     Complex  @relation(fields: [complexId], references: [id], onDelete: Cascade)
+}
+
+model UnitType {
+  id                 String   @id @default(cuid())
+  complexId          String
+  exclusiveAreaM2    Float
+  supplyAreaM2       Float?
+  roomCount          Int?
+  bathroomCount      Int?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  complex            Complex  @relation(fields: [complexId], references: [id], onDelete: Cascade)
+  transactions       Transaction[]
+  summaries          TransactionSummary[]
+
+  @@index([complexId, exclusiveAreaM2])
+}
+
+model Transaction {
+  id             String   @id @default(cuid())
+  unitTypeId     String
+  contractDate   DateTime
+  tradePriceKrw  BigInt
+  floor          Int?
+  yearMonth      Int
+  sourceRegionCode String?
+  sourceRaw      Json?
+  createdAt      DateTime @default(now())
+  unitType       UnitType  @relation(fields: [unitTypeId], references: [id], onDelete: Cascade)
+
+  @@index([unitTypeId, contractDate])
+}
+
+model TransactionSummary {
+  id                   String   @id @default(cuid())
+  unitTypeId           String
+  periodMonths         Int
+  representativePriceKrw BigInt
+  latestTradeDate      DateTime
+  tradeCount           Int
+  medianPriceKrw       BigInt
+  isStale              Boolean  @default(false)
+  staleReason          String?
+  updatedAt            DateTime @updatedAt
+  unitType             UnitType @relation(fields: [unitTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([unitTypeId, periodMonths])
+}
+
+model NaverLink {
+  id          String   @id @default(cuid())
+  complexId    String   @unique
+  directUrl    String?
+  fallbackUrl  String
+  verifiedAt   DateTime?
+  complex      Complex  @relation(fields: [complexId], references: [id], onDelete: Cascade)
+}
+
+model LoanRuleSet {
+  id             String   @id @default(cuid())
+  version         String   @unique
+  name            String
+  effectiveFrom   DateTime
+  effectiveTo     DateTime?
+  description     String?
+  isDefault       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  products        LoanRuleProduct[]
+}
+
+model LoanRuleProduct {
+  id                String   @id @default(cuid())
+  ruleSetId         String
+  productType       ProductType
+  regionKind        RegionKind
+  firstTimeBuyerOnly Boolean @default(false)
+  maxLtv            Float
+  maxDti            Float?
+  maxDsr            Float?
+  stressRateBps     Int      @default(0)
+  productMaxLoanKrw BigInt?
+  priceCapKrw       BigInt?
+  minAge            Int?
+  maxAge            Int?
+  maxTermMonths     Int?
+  createdAt         DateTime @default(now())
+  ruleSet           LoanRuleSet @relation(fields: [ruleSetId], references: [id], onDelete: Cascade)
+}
+
+model SyncJob {
+  id          String   @id @default(cuid())
+  jobType     String
+  status      String
+  target      String?
+  startedAt   DateTime @default(now())
+  finishedAt  DateTime?
+  message     String?
+}
+
+model ComplexMappingOverride {
+  id                 String   @id @default(cuid())
+  sourceComplexName  String
+  sourceAddress      String?
+  sourceAreaM2       Float?
+  complexId          String
+  note               String?
+  createdAt          DateTime @default(now())
+}
