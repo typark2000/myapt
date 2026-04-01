@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type FormState = {
   annualIncomeKrw: string;
@@ -64,6 +64,7 @@ const sampleQuery = new URLSearchParams({
 export function HomeWizard() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(defaultState);
+  const [stepDirection, setStepDirection] = useState<'next' | 'prev'>('next');
 
   const steps = useMemo(() => {
     const base = [
@@ -96,10 +97,12 @@ export function HomeWizard() {
   }
 
   function next() {
+    setStepDirection('next');
     setStep((prev) => Math.min(prev + 1, steps.length - 1));
   }
 
   function prev() {
+    setStepDirection('prev');
     setStep((prev) => Math.max(prev - 1, 0));
   }
 
@@ -276,7 +279,7 @@ export function HomeWizard() {
               <div className="h-2 rounded-full bg-slate-900 transition-all" style={{ width: `${progress}%` }} />
             </div>
 
-            <div className="min-h-[140px]">{current.render()}</div>
+            <div key={current.key} className={`min-h-[140px] wizard-step-shell ${stepDirection === 'next' ? 'enter-next' : 'enter-prev'}`}>{current.render()}</div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-between">
               <button type="button" onClick={prev} disabled={step === 0} className="wizard-secondary">이전</button>
@@ -301,6 +304,7 @@ export function HomeWizard() {
               <SummaryChip label="현금" value={toWon(form.cashKrw)} />
               <SummaryChip label="지역" value={form.regionText || '미입력'} />
             </div>
+            <p className="mt-3 text-xs leading-5 text-slate-500">지금은 질문 하나씩 답하면 되고, 복잡한 금융 규칙은 뒤에서 정리해서 보여준다.</p>
           </section>
         </form>
       </div>
