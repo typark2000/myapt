@@ -12,7 +12,9 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "sync:mock": "tsx scripts/sync-mock.ts",
-    "sync:apt-trades": "tsx scripts/fetch-apt-trades.ts"
+    "sync:apt-trades": "tsx scripts/fetch-apt-trades.ts",
+    "sync:complex-list": "tsx scripts/fetch-complex-list.ts",
+    "sync:complex-detail": "tsx scripts/fetch-complex-detail.ts"
   },
   "dependencies": {
     "@prisma/client": "^7.6.0",

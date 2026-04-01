@@ -22,3 +22,9 @@
 - 공동주택 기본정보 수집기 연결
 - 법정동 코드 기반 매핑 정교화
 - 수동 override admin UI 연결
+
+
+## 메타데이터 입력원
+- 단지 목록 수집기에서 `ComplexMetaCandidate` 생성
+- 단지 기본정보 수집기에서 builder / parking / 난방 등 상세 보강
+- 이후 DB 적재 시 `Complex`, `ComplexMetadata`에 분리 저장

@@ -36,3 +36,17 @@ npm run sync:apt-trades -- 11740 202603
 - 서비스키는 `PUBLIC_DATA_API_KEY` 환경변수로만 사용
 - 클라이언트에서 직접 호출하지 않음
 - 가격 판단 기준은 여전히 실거래가만 사용
+
+
+## 이번 2차 구현 범위
+- 공동주택 단지 목록 수집기 1차
+- 공동주택 기본정보 수집기 1차
+- 단지 메타 정규화
+- 단지 메타 스냅샷 저장
+- 실거래 매핑에 연결 가능한 candidate 구조
+
+### 추가 스크립트
+```bash
+npm run sync:complex-list -- 11740 1
+npm run sync:complex-detail -- A10001
+```

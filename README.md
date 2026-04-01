@@ -81,6 +81,16 @@ npm run sync:apt-trades -- 11740 202603
 - `src/lib/server/public-data/complex-metadata.ts`
 - `docs/MAPPING.md`
 
+
+### 추가 수집 스크립트
+```bash
+npm run sync:complex-list -- 11740 1
+npm run sync:complex-detail -- A10001
+```
+
+- `sync:complex-list`: 공동주택 단지 목록 수집 / 정규화 / 스냅샷 저장
+- `sync:complex-detail`: 단지 기본정보 수집 / 정규화 / 스냅샷 저장
+
 ## 환경 변수
 - `DATABASE_URL`: PostgreSQL 연결 문자열
 - `USE_MOCK_DATA`: `1`이면 mock 시드 사용
