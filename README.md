@@ -96,6 +96,18 @@ npm run sync:complex-detail -- A10001
 - `USE_MOCK_DATA`: `1`이면 mock 시드 사용
 - `PUBLIC_DATA_API_KEY`: 공공 데이터 수집용 키
 
+
+## DB 적재 배치
+스냅샷 수집 후 DB 적재는 아래 순서로 실행한다.
+
+```bash
+npm run db:generate
+npm run db:push
+npm run import:snapshots
+```
+
+상세 설명은 `docs/INGESTION.md` 참고.
+
 ## 테스트
 ```bash
 npm run test
