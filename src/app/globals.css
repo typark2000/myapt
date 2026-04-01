@@ -130,3 +130,36 @@ body {
   from { opacity: 0; transform: translateY(-10px) scale(0.995); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+.filter-panel {
+  @apply rounded-3xl border border-slate-200 bg-slate-50 p-4;
+}
+
+.filter-toggle-row {
+  @apply flex flex-wrap gap-2;
+}
+
+.filter-chip {
+  @apply inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400;
+}
+
+.filter-chip.active {
+  @apply border-slate-900 bg-slate-900 text-white;
+}
+
+.filter-grid {
+  @apply mt-4 grid gap-3 md:grid-cols-2;
+}
+
+.filter-field {
+  @apply grid gap-2 text-sm font-medium text-slate-700;
+}
+
+.card-appear {
+  animation: cardAppear 220ms ease both;
+}
+
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
