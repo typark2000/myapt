@@ -69,6 +69,18 @@ npm run sync:apt-trades -- 11740 202603
 
 자세한 내용은 `docs/DATA_PIPELINE.md` 참고.
 
+
+## 단지 메타 / 매핑 1차 구현
+현재 mock 데이터도 단순 카드 하드코딩이 아니라 아래 구조를 따른다.
+- 거래 raw row
+- 단지 메타 후보
+- 단지 + 전용면적 타입 summary 생성
+
+관련 파일:
+- `src/lib/server/mapping/transaction-mapper.ts`
+- `src/lib/server/public-data/complex-metadata.ts`
+- `docs/MAPPING.md`
+
 ## 환경 변수
 - `DATABASE_URL`: PostgreSQL 연결 문자열
 - `USE_MOCK_DATA`: `1`이면 mock 시드 사용

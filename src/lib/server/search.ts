@@ -5,7 +5,7 @@ import type { AffordabilityResult, SearchFilters, SearchResultItem } from '@/lib
 export function searchAffordableApartments(filters: SearchFilters, affordability: AffordabilityResult): SearchResultItem[] {
   const now = new Date('2026-04-01T00:00:00+09:00');
   const staleCutoff = subMonths(now, filters.periodMonths);
-  let items = getMockApartments().filter((item) => {
+  let items = getMockApartments(filters.periodMonths).filter((item) => {
     const regionText = [item.regionName, item.address, item.complexName].join(' ');
     if (filters.regionText && !regionText.includes(filters.regionText)) return false;
     if (filters.sido && !item.address.includes(filters.sido)) return false;
@@ -18,7 +18,7 @@ export function searchAffordableApartments(filters: SearchFilters, affordability
     if (filters.maxCompletionYear && (item.completionYear ?? 9999) > filters.maxCompletionYear) return false;
     if (filters.minExclusiveAreaM2 && item.exclusiveAreaM2 < filters.minExclusiveAreaM2) return false;
     if (filters.maxExclusiveAreaM2 && item.exclusiveAreaM2 > filters.maxExclusiveAreaM2) return false;
-    if (filters.staleMode === 'exclude' && parseISO(item.latestTradeDate) < staleCutoff) return false;
+    if (filters.staleMode === 'exclude' && (item.isStale || parseISO(item.latestTradeDate) < staleCutoff)) return false;
     return true;
   }).map((item) => {
     const acquisitionCostKrw = Math.round(item.representativePriceKrw * affordability.assumptions.acquisitionCostRate);
