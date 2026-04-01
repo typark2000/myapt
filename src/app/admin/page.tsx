@@ -10,8 +10,8 @@ export default function AdminPage() {
         <section className="panel-hero">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">myapt admin</p>
-            <h1 className="mt-3 text-3xl font-bold md:text-5xl">규칙, 가정, 동기화 상태를 한 번에 본다</h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">운영자가 지금 어떤 규칙으로 계산하고 있고, 데이터 파이프라인이 어느 단계에 있는지 빠르게 확인할 수 있는 최소 관리자 화면이다.</p>
+            <h1 className="mt-3 text-3xl font-bold md:text-5xl">규칙, 가정, 동기화 상태를 한 번에 확인합니다</h1>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">운영자가 현재 어떤 규칙으로 계산하고 있는지, 데이터 파이프라인이 어느 단계에 있는지 빠르게 확인할 수 있는 최소 관리자 화면입니다.</p>
           </div>
         </section>
 
@@ -26,7 +26,7 @@ export default function AdminPage() {
           <section className="panel-card">
             <div className="mb-5">
               <h2 className="text-xl font-semibold text-slate-950">금리와 기본 가정</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">현재 화면과 계산 엔진에서 쓰는 기본 설정값이다.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">현재 화면과 계산 엔진에서 사용하는 기본 설정값입니다.</p>
             </div>
             <div className="grid gap-3 md:grid-cols-3">
               {Object.entries(summary.baseRates).map(([key, value]) => (
@@ -41,7 +41,7 @@ export default function AdminPage() {
           <section className="panel-card">
             <div className="mb-5">
               <h2 className="text-xl font-semibold text-slate-950">동기화 상태</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">실거래, 단지 메타, 적재 배치의 현재 진행 상태를 여기서 확인한다.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">실거래, 단지 메타, 적재 배치의 현재 진행 상태를 여기에서 확인합니다.</p>
             </div>
             <div className="space-y-3">
               {summary.syncJobs.map((job) => (

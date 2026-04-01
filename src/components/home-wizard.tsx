@@ -68,23 +68,23 @@ export function HomeWizard() {
 
   const steps = useMemo(() => {
     const base = [
-      { key: 'annualIncomeKrw', title: '연봉을 알려주세요', desc: '세전 연 소득 기준으로 입력하면 된다.', render: numberInput('annualIncomeKrw', '예: 85000000') },
-      { key: 'age', title: '나이를 알려주세요', desc: '만 나이 기준이면 충분하다.', render: numberInput('age', '예: 34') },
-      { key: 'hasSpouse', title: '배우자가 있으신가요?', desc: '배우자 소득이 있으면 함께 계산할 수 있다.', render: spouseToggle },
-      ...(form.hasSpouse === 'yes' ? [{ key: 'spouseIncomeKrw', title: '배우자 연봉은 얼마인가요?', desc: '없으면 0으로 둘 수 있다.', render: numberInput('spouseIncomeKrw', '예: 45000000') }] : []),
-      { key: 'cashKrw', title: '현재 보유 현금은 얼마인가요?', desc: '주택 구매에 투입 가능한 전체 현금을 입력해달라.', render: numberInput('cashKrw', '예: 250000000') },
-      { key: 'emergencyFundKrw', title: '남겨둘 비상자금은 얼마인가요?', desc: '0도 가능하다. 남길 돈이 있으면 더 보수적으로 계산한다.', render: numberInput('emergencyFundKrw', '예: 30000000') },
-      { key: 'existingAnnualDebtServiceKrw', title: '기존 연간 원리금 상환액은 얼마인가요?', desc: '기존 대출이 없으면 0으로 입력하면 된다.', render: numberInput('existingAnnualDebtServiceKrw', '예: 12000000') },
-      { key: 'ownedHomeCount', title: '현재 보유 주택 수는 몇 채인가요?', desc: '무주택 / 1주택 / 다주택 판단에 사용된다.', render: numberInput('ownedHomeCount', '예: 0') },
-      { key: 'isFirstTimeBuyer', title: '생애최초 주택구입이신가요?', desc: '정책모기지나 LTV 완화 판단에 반영된다.', render: firstTimeToggle },
-      { key: 'loanScenario', title: '대출 시나리오는 어떻게 볼까요?', desc: '현금만, 일반 주담대, 정책모기지, 모두 비교 중 선택 가능하다.', render: loanScenarioSelect },
-      { key: 'desiredLoanTermMonths', title: '희망 대출 만기는 몇 개월인가요?', desc: '보통 360개월(30년)이나 420개월 이상을 많이 본다.', render: numberInput('desiredLoanTermMonths', '예: 360') },
-      { key: 'rateType', title: '금리 유형은 무엇으로 볼까요?', desc: '기본 금리를 쓰되 원하면 직접 금리도 넣을 수 있다.', render: rateTypeSelect },
-      { key: 'desiredRegionKind', title: '먼저 지역 구분을 고를까요?', desc: '수도권 / 지방 / 규제지역에 따라 규칙이 달라진다.', render: regionKindSelect },
-      { key: 'regionText', title: '어느 지역을 보고 싶나요?', desc: '시/군/구나 동, 혹은 키워드로 입력하면 된다.', render: textInput('regionText', '예: 서울 강동구') },
-      { key: 'minExclusiveAreaM2', title: '최소 전용면적은 어느 정도가 좋나요?', desc: '면적 타입 단위로 결과를 보여주기 때문에 중요하다.', render: areaRangeInputs },
-      { key: 'minCompletionYear', title: '연식이나 세대수 조건도 걸까요?', desc: '원하면 최소 준공연도와 세대수 기준을 함께 볼 수 있다.', render: buildingFilterInputs },
-      { key: 'periodMonths', title: '최근 실거래 반영 기간은 얼마나 볼까요?', desc: '기본 12개월을 추천한다.', render: periodAndSortInputs }
+      { key: 'annualIncomeKrw', title: '연봉을 알려주세요', desc: '세전 연 소득 기준으로 입력해 주세요.', render: numberInput('annualIncomeKrw', '예: 85000000') },
+      { key: 'age', title: '나이를 알려주세요', desc: '만 나이 기준으로 입력해 주시면 됩니다.', render: numberInput('age', '예: 34') },
+      { key: 'hasSpouse', title: '배우자가 있으신가요?', desc: '배우자 소득이 있으시면 함께 계산해 드릴 수 있습니다.', render: spouseToggle },
+      ...(form.hasSpouse === 'yes' ? [{ key: 'spouseIncomeKrw', title: '배우자 연봉은 얼마인가요?', desc: '없으시면 0으로 입력해 주세요.', render: numberInput('spouseIncomeKrw', '예: 45000000') }] : []),
+      { key: 'cashKrw', title: '현재 보유 현금은 얼마인가요?', desc: '주택 구매에 투입 가능한 전체 현금을 입력해 주세요.', render: numberInput('cashKrw', '예: 250000000') },
+      { key: 'emergencyFundKrw', title: '남겨둘 비상자금은 얼마인가요?', desc: '0원도 가능합니다. 남겨둘 금액이 있으면 더 보수적으로 계산해 드립니다.', render: numberInput('emergencyFundKrw', '예: 30000000') },
+      { key: 'existingAnnualDebtServiceKrw', title: '기존 연간 원리금 상환액은 얼마인가요?', desc: '기존 대출이 없으시면 0으로 입력해 주세요.', render: numberInput('existingAnnualDebtServiceKrw', '예: 12000000') },
+      { key: 'ownedHomeCount', title: '현재 보유 주택 수는 몇 채인가요?', desc: '무주택 / 1주택 / 다주택 판단에 사용됩니다.', render: numberInput('ownedHomeCount', '예: 0') },
+      { key: 'isFirstTimeBuyer', title: '생애최초 주택구입이신가요?', desc: '정책모기지나 LTV 완화 판단에 반영됩니다.', render: firstTimeToggle },
+      { key: 'loanScenario', title: '대출 시나리오는 어떻게 볼까요?', desc: '현금만, 일반 주담대, 정책모기지, 모두 비교 중에서 선택하실 수 있습니다.', render: loanScenarioSelect },
+      { key: 'desiredLoanTermMonths', title: '희망 대출 만기는 몇 개월인가요?', desc: '보통 360개월(30년)이나 420개월 이상을 많이 선택하십니다.', render: numberInput('desiredLoanTermMonths', '예: 360') },
+      { key: 'rateType', title: '금리 유형은 무엇으로 볼까요?', desc: '기본 금리를 사용하되, 원하시면 직접 금리도 입력하실 수 있습니다.', render: rateTypeSelect },
+      { key: 'desiredRegionKind', title: '먼저 지역 구분을 고를까요?', desc: '수도권 / 지방 / 규제지역에 따라 적용 규칙이 달라집니다.', render: regionKindSelect },
+      { key: 'regionText', title: '어느 지역을 보고 싶나요?', desc: '시/군/구나 동, 혹은 키워드로 입력해 주세요.', render: textInput('regionText', '예: 서울 강동구') },
+      { key: 'minExclusiveAreaM2', title: '최소 전용면적은 어느 정도가 좋나요?', desc: '면적 타입 단위로 결과를 보여드리기 때문에 중요한 항목입니다.', render: areaRangeInputs },
+      { key: 'minCompletionYear', title: '연식이나 세대수 조건도 걸까요?', desc: '원하시면 최소 준공연도와 세대수 기준을 함께 보실 수 있습니다.', render: buildingFilterInputs },
+      { key: 'periodMonths', title: '최근 실거래 반영 기간은 얼마나 볼까요?', desc: '기본값으로는 12개월을 추천드립니다.', render: periodAndSortInputs }
     ];
     return base;
   }, [form.hasSpouse]);
@@ -117,8 +117,8 @@ export function HomeWizard() {
   function spouseToggle() {
     return (
       <div className="wizard-option-grid">
-        <button type="button" className={optionClass(form.hasSpouse === 'yes')} onClick={() => update('hasSpouse', 'yes')}>예, 같이 계산할게요</button>
-        <button type="button" className={optionClass(form.hasSpouse === 'no')} onClick={() => update('hasSpouse', 'no')}>아니요, 혼자예요</button>
+        <button type="button" className={optionClass(form.hasSpouse === 'yes')} onClick={() => update('hasSpouse', 'yes')}>예, 함께 계산해 주세요</button>
+        <button type="button" className={optionClass(form.hasSpouse === 'no')} onClick={() => update('hasSpouse', 'no')}>아니요, 혼자입니다</button>
       </div>
     );
   }
@@ -233,8 +233,8 @@ export function HomeWizard() {
       <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4 py-10 md:px-6">
         <section className="rounded-3xl bg-slate-900 px-6 py-8 text-white shadow-xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">myapt</p>
-          <h1 className="mt-3 text-3xl font-bold md:text-5xl">질문에 답하면 내 예산과 살 수 있는 아파트를 바로 보여줄게</h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">복잡한 폼 대신 하나씩 묻는다. 가격 기준은 실거래가고, 결과는 단지 + 전용면적 타입으로 보여준다.</p>
+          <h1 className="mt-3 text-3xl font-bold md:text-5xl">질문에 답하시면 내 예산과 살 수 있는 아파트를 바로 보여드리겠습니다</h1>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">복잡한 폼 대신 하나씩 여쭤보겠습니다. 가격 기준은 실거래가이며, 결과는 단지 + 전용면적 타입으로 보여드립니다.</p>
         </section>
 
         <form action="/results" className="space-y-6">
@@ -295,7 +295,7 @@ export function HomeWizard() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold text-slate-700">현재 입력 요약</p>
-                <p className="mt-1 text-sm text-slate-500">입력한 값은 마지막 결과 페이지에서 다시 검토할 수 있다.</p>
+                <p className="mt-1 text-sm text-slate-500">입력하신 값은 마지막 결과 페이지에서 다시 검토하실 수 있습니다.</p>
               </div>
               <Link href={`/results?${sampleQuery}`} className="text-sm font-medium text-sky-700 underline">샘플 결과 바로 보기</Link>
             </div>
@@ -304,7 +304,7 @@ export function HomeWizard() {
               <SummaryChip label="현금" value={toWon(form.cashKrw)} />
               <SummaryChip label="지역" value={form.regionText || '미입력'} />
             </div>
-            <p className="mt-3 text-xs leading-5 text-slate-500">지금은 질문 하나씩 답하면 되고, 복잡한 금융 규칙은 뒤에서 정리해서 보여준다.</p>
+            <p className="mt-3 text-xs leading-5 text-slate-500">지금은 질문에 하나씩 답해 주시면 되고, 복잡한 금융 규칙은 뒤에서 정리해서 보여드립니다.</p>
           </section>
         </form>
       </div>
