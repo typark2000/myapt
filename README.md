@@ -53,6 +53,22 @@ MVP는 `USE_MOCK_DATA=1`일 때 로컬 mock 실거래 요약 데이터를 사용
 4. 실거래-단지 매핑
 5. `transaction_summaries` 집계 생성
 
+
+## 공공데이터 수집 1차 구현
+현재 아래 스크립트가 구현돼 있다.
+
+```bash
+npm run sync:apt-trades -- 11740 202603
+```
+
+동작:
+- 국토교통부 아파트 매매 실거래가 API 호출
+- 지역/월 기준 XML 응답 수집
+- 정규화
+- `data-cache/transactions/<regionCode>/<YYYYMM>.json` 저장
+
+자세한 내용은 `docs/DATA_PIPELINE.md` 참고.
+
 ## 환경 변수
 - `DATABASE_URL`: PostgreSQL 연결 문자열
 - `USE_MOCK_DATA`: `1`이면 mock 시드 사용
