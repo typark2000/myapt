@@ -10,10 +10,35 @@ function normalize(params: Record<string, string | string[] | undefined>) {
   return Object.fromEntries(Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]));
 }
 
+const fallbackParams = {
+  age: '34',
+  annualIncomeKrw: '85000000',
+  spouseIncomeKrw: '45000000',
+  householdType: 'COUPLE',
+  cashKrw: '250000000',
+  emergencyFundKrw: '30000000',
+  existingAnnualDebtServiceKrw: '12000000',
+  ownedHomeCount: '0',
+  isFirstTimeBuyer: 'true',
+  loanScenario: 'COMPARE_ALL',
+  desiredLoanTermMonths: '360',
+  rateType: 'MIXED',
+  desiredRegionKind: 'CAPITAL',
+  regionText: '서울',
+  periodMonths: '12',
+  sortBy: 'budgetClosest',
+  staleMode: 'include',
+  minHouseholds: '300',
+  minCompletionYear: '2010',
+  minExclusiveAreaM2: '59',
+  maxExclusiveAreaM2: '84'
+};
+
 export default async function ResultsPage({ searchParams }: PageProps) {
-  const params = normalize(await searchParams);
-  const finance = financeInputSchema.parse(params);
-  const filters = searchFiltersSchema.parse(params);
+  const rawParams = normalize(await searchParams);
+  const merged = { ...fallbackParams, ...rawParams };
+  const finance = financeInputSchema.parse(merged);
+  const filters = searchFiltersSchema.parse(merged);
   const scenarios = calculateAffordability(finance);
   const best = pickBestScenario(scenarios);
   const results = searchAffordableApartments(filters, best);
